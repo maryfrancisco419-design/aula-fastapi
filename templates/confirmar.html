@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card border-danger shadow-sm">
+      <div class="card-header bg-danger text-white">
+        <h5 class="mb-0"><i class="bi bi-exclamation-triangle me-2"></i>Confirmar Exclusão</h5>
+      </div>
+      <div class="card-body p-4 text-center">
+        <p class="fs-5">Você tem certeza que deseja excluir o curso:</p>
+        <p class="fw-bold fs-4 text-danger">"{{ curso.nome }}"</p>
+        <p class="text-muted">Esta ação não poderá ser desfeita.</p>
+
+        <form method="POST" action="/cursos/{{ curso.id }}/excluir">
+          <div class="d-flex gap-2 justify-content-center mt-3">
+            <button type="submit" class="btn btn-danger">
+              <i class="bi bi-trash me-1"></i>Sim, Excluir
+            </button>
+            <a href="/cursos" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left me-1"></i>Cancelar
+            </a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

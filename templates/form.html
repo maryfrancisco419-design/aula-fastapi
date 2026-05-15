@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          <i class="bi bi-book me-2"></i>{{ title }}
+        </h5>
+      </div>
+      <div class="card-body p-4">
+
+        {# Define a action do form: POST /cursos ou POST /cursos/{id}/editar #}
+        {% if curso %}
+          {% set action = "/cursos/" ~ curso.id ~ "/editar" %}
+        {% else %}
+          {% set action = "/cursos" %}
+        {% endif %}
+
+        <form method="POST" action="{{ action }}">
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nome do Curso *</label>
+            <input type="text" name="nome" class="form-control"
+                   value="{{ curso.nome if curso else '' }}"
+                   placeholder="Ex: Python Básico"
+                   required minlength="3" maxlength="100">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Descrição</label>
+            <textarea name="descricao" class="form-control" rows="3"
+                      placeholder="Descreva o curso..."
+                      maxlength="300">{{ curso.descricao if curso else '' }}</textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-semibold">Carga Horária (h) *</label>
+              <input type="number" name="carga_hor" class="form-control"
+                     value="{{ curso.carga_hor if curso else '' }}"
+                     placeholder="Ex: 40" min="1" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-semibold">Preço (R$)</label>
+              <input type="number" name="preco" class="form-control"
+                     value="{{ curso.preco if curso else '0.00' }}"
+                     step="0.01" min="0" placeholder="0.00">
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-circle me-1"></i>
+              {{ "Salvar Alterações" if curso else "Cadastrar Curso" }}
+            </button>
+            <a href="/cursos" class="btn btn-outline-secondary">
+              <i class="bi bi-x-circle me-1"></i>Cancelar
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
